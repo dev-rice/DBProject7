@@ -1,9 +1,25 @@
 var map;
+
+function getLatitude() {
+    return parseFloat($('#lat').val());
+}
+
+function getLongitude() {
+    return parseFloat($('#lon').val());
+}
+
 function initMap() {
-    longitude = -105.040443;
-    latitude = 39.7237545;
+    longitude = getLatitude();
+    latitude = getLongitude();
+    console.log(longitude);
+    console.log(latitude);
     map = new google.maps.Map(document.getElementById('map'), {
         center: {lat: latitude, lng: longitude},
         zoom: 12
     });
 }
+
+$( "#go" ).click(function() {
+    console.log("On click called!!");
+    initMap();
+});
