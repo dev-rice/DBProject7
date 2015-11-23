@@ -8,18 +8,30 @@ function getLongitude() {
     return parseFloat($('#lon').val());
 }
 
+function getMarkerCoordinates() {
+    return {lat: getLatitude(), lng: getLongitude()}
+}
+
+function getDenverCoordinates() {
+    return {lat: 39.723, lng: -105.04}
+}
+
 function initMap() {
-    longitude = getLatitude();
-    latitude = getLongitude();
-    console.log(longitude);
-    console.log(latitude);
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: latitude, lng: longitude},
+        center: getDenverCoordinates(),
         zoom: 12
     });
 }
 
-$( "#go" ).click(function() {
-    console.log("On click called!!");
-    initMap();
+function addMarker() {
+    // Create a marker and set its position.
+    var marker = new google.maps.Marker({
+        map: map,
+        position: getMarkerCoordinates(),
+        title: 'CRIMEEEEEE!'
+    });
+}
+
+$("#add_marker").click(function() {
+    addMarker();
 });
