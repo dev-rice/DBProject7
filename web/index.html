@@ -1,16 +1,36 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }
-      #map { height: 100%; }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script type="text/javascript" src="maps_loader.js"/></script>
-    <script async defer
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRIAh31ZR7A5cyxNBJCePfSvP1ZoSM9z8&callback=initMap">
-    </script>
-  </body>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <head>
+        <style type="text/css">
+            html, body { height: 90%; margin: 0; padding: 0; }
+            #map { height: 100%; }
+            #lat-lon-input {
+                width: 150px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <div id="interface">
+            <div class="form-group" id="lat-lon-input">
+                <label for="lat">Latitude:</label>
+                <input type="text" class="form-control" id="lat">
+                <label for="lon">Longitude:</label>
+                <input type="text" class="form-control" id="lon">
+                <button type="button" class="btn btn-default" id="go">Go!</button>
+            </div>
+        </div>
+        <script type="text/javascript" src="maps_loader.js"/></script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRIAh31ZR7A5cyxNBJCePfSvP1ZoSM9z8&callback=initMap">
+        </script>
+    </body>
 </html>
