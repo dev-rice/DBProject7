@@ -30,6 +30,7 @@ function addMarker() {
         position: getMarkerCoordinates(),
         title: 'CRIMEEEEEE!'
     });
+    console.log($( "#crime_select" ).val());
 }
 
 $("#add_marker").click(function() {
