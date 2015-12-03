@@ -23,16 +23,38 @@ function initMap() {
     });
 }
 
-function addMarker() {
+function putMarkersForCrime() {
+    full_code = $("#crime_select").val()
+
+    // Split the code and ext code
+    code_array = full_code.split(",");
+    offense_code = code_array[0];
+    offense_ext = code_array[1];
+
+    $.get("get_locations.php", { code:offense_code, ext:offense_ext },
+        function(data){
+            addCrimeMarkers(data)
+        }
+    );
+}
+
+function addCrimeMarkers(data) {
+    // data = "{\"locations\": [{\"lat\":102, \"lon\":103}]}"
+    // console.log(data);
+    markers = JSON.parse(data);
+    console.log(markers);
+    
+}
+
+function addMarker(coordinates) {
     // Create a marker and set its position.
     var marker = new google.maps.Marker({
         map: map,
-        position: getMarkerCoordinates(),
+        position: coordinates,
         title: 'CRIMEEEEEE!'
     });
-    console.log($( "#crime_select" ).val());
 }
 
-$("#add_marker").click(function() {
-    addMarker();
-});
+$("#show_btn").click(function() {
+    putMarkersForCrime();
+})

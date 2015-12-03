@@ -22,9 +22,8 @@
         <div id="map"></div>
         <div id="interface">
             <div class="form-group" id="lat-lon-input">
-            <?php include 'populate_crimes.php';?>
-            
-                <button type="button" class="btn btn-default" id="add_marker">Add Marker</button>
+                <?php include 'populate_crimes.php';?>
+                <button type="button" class="btn btn-default" id="show_btn">Show Crimes</button>
             </div>
 
         </div>
