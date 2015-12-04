@@ -37,18 +37,20 @@
 
         #show_btn {
             margin-top: 10px;
-            position: absolute;
-            right: 0px;
         }
 
         #button_and_checkboxes {
             position: relative;
-            display: block;
         }
 
-        #splitter_thing {
+        .splitter_thing {
             height: 2px;
+            margin-top: 10px;
             background-color: rgb(128, 128, 128);
+        }
+
+        h3 {
+            margin-top: 0px;
         }
     </style>
 </head>
@@ -57,25 +59,28 @@
     <div id="map"></div>
     <div id="interface">
         <div class="form-group" id="theform">
+            <h3>Select a category</h3>
             <?php include 'populate_crimes.php';?>
                 <div id="button_and_checkboxes">
                     <button type="button" class="btn btn-default" id="show_btn">Show</button>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="crimes" id="crimes_check" checked>Crimes</label>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" value="traffic_accidents" id="traffic_check" checked>Traffic Accidents</label>
-                    </div>
                 </div>
-                <div id="splitter_thing"></div>
+                <!-- <div class="splitter_thing" id="top_splitter"></div>
+                <h3>Show all</h3>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="crimes" id="crimes_check">Crimes</label>
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="traffic_accidents" id="traffic_check">Traffic Accidents</label>
+                </div> -->
+                <div class="splitter_thing"></div>
                 <h1 id="crime_counter">0 records</h1>
         </div>
 
     </div>
     <script type="text/javascript" src="maps_loader.js" /></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRIAh31ZR7A5cyxNBJCePfSvP1ZoSM9z8&callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRIAh31ZR7A5cyxNBJCePfSvP1ZoSM9z8&libraries=visualization&callback=initMap">
     </script>
 </body>
 
