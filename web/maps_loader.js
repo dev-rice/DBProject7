@@ -1,5 +1,6 @@
 var map;
 var markers = new Array();
+var crime_locations = new Array();
 
 function getLatitude() {
     return parseFloat($('#lat').val());
@@ -36,7 +37,7 @@ function packageCoordinates(latitude, longitude) {
 }
 
 function putMarkersForCrime() {
-    setMapOnAll(null);
+    clearMarkers();
 
     full_code = $("#crime_select").val()
 
@@ -55,6 +56,21 @@ function putMarkersForCrime() {
             addCrimeMarkers(data);
         }
     );
+}
+
+function addCrimeLocations(data) {
+    num_records = markers_from_php.locations.length;
+    if (num_records == 1) {
+        $("#crime_counter").text(markers_from_php.locations.length + " record");
+    } else {
+        $("#crime_counter").text(markers_from_php.locations.length + " records");
+    }
+
+    for (i = 0; i < markers_from_php.locations.length; i++) {
+        latitude = markers_from_php.locations[i].latitude;
+        longitude = markers_from_php.locations[i].longitude;
+        crime_locations.push(packageCoordinates(latitude, longitude));
+    }
 }
 
 function addCrimeMarkers(data) {
@@ -102,6 +118,7 @@ function addMarker(coordinates) {
 }
 
 $("#show_btn").click(function() {
+    console.log(new google.maps.LatLng(37.782551, -122.445368));
     putMarkersForCrime();
 });
 
