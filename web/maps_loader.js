@@ -1,5 +1,7 @@
 var map;
-var markers = new Array();
+var markers = [];
+var crime_locations = [];
+var heatmap;
 
 function getLatitude() {
     return parseFloat($('#lat').val());
@@ -28,15 +30,11 @@ function initMap() {
 }
 
 function packageCoordinates(latitude, longitude) {
-    return {
-        lat: latitude,
-        lng: longitude
-    };
-
+    return new google.maps.LatLng(latitude, longitude);
 }
 
 function putMarkersForCrime() {
-    setMapOnAll(null);
+    clearCrimeLocations();
 
     full_code = $("#crime_select").val()
 
@@ -52,37 +50,69 @@ function putMarkersForCrime() {
             traffic: $("#traffic_check").is(':checked')
         },
         function(data) {
-            addCrimeMarkers(data);
+            addCrimeLocations(data);
+            // addMarkersFromCrimeLocations();
+            addHeatmapsFromCrimeLocations();
         }
     );
 }
 
-function addCrimeMarkers(data) {
-    // data = "{\"locations\": [{\"lat\":102, \"lon\":103}]}"
-    // console.log(data);
-    markers_from_php = JSON.parse(data);
-    console.log("Received " + markers_from_php.locations.length + " results");
+function showAllCrimes() {
+    return $("#crimes_check").is(':checked');
+}
 
-    num_records = markers_from_php.locations.length;
-    if (num_records == 1) {
-        $("#crime_counter").text(markers_from_php.locations.length + " record");
-    } else {
-        $("#crime_counter").text(markers_from_php.locations.length + " records");
-    }
+function showAllTrafficAccidents() {
+    return $("#traffic_check").is(':checked');
+}
+
+function addCrimeLocations(data) {
+    markers_from_php = JSON.parse(data);
 
     for (i = 0; i < markers_from_php.locations.length; i++) {
-        // console.log(markers_from_php.locations[i]);
         latitude = markers_from_php.locations[i].latitude;
         longitude = markers_from_php.locations[i].longitude;
-        addMarker(packageCoordinates(latitude, longitude));
+        crime_locations.push(packageCoordinates(latitude, longitude));
     }
 
+    num_records = crime_locations.length;
+    if (num_records == 1) {
+        $("#crime_counter").text(num_records + " record");
+    } else {
+        $("#crime_counter").text(num_records + " records");
+    }
+}
+
+function addMarkersFromCrimeLocations() {
+    clearMarkers();
+    for (i = 0; i < crime_locations.length; i++) {
+        console.log(crime_locations[i]);
+        addMarker(crime_locations[i]);
+    }
+}
+
+function addHeatmapsFromCrimeLocations() {
+    clearHeatmap();
+    heatmap = new google.maps.visualization.HeatmapLayer({
+        data: crime_locations,
+        map: map
+    });
+    heatmap.set('opacity', 0.8);
 }
 
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
     for (var i = 0; i < markers.length; i++) {
         markers[i].setMap(map);
+    }
+}
+
+function clearCrimeLocations() {
+    crime_locations = [];
+}
+
+function clearHeatmap() {
+    if (heatmap) {
+        heatmap.setMap(null);
     }
 }
 
